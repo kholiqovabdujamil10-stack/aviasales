@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Создать билет | Aviasales{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <h1>Добавить авиабилет</h1>
+    <p>Заполни информацию о рейсе.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <select name="airline" required>
+            <option value="">Выбери авиакомпанию</option>
+            {% for airline in airlines %}
+                <option value="{{ airline.id }}">{{ airline.airline_name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="departure" placeholder="Откуда?" required>
+
+        <input type="text" name="arrival" placeholder="Куда?" required>
+
+        <input type="date" name="flight" required>
+        <input type="date" name="landing" required>
+        <input type="number" name="price" placeholder="Цена билета" required>
+
+        <button type="submit" class="btn">
+            Создать билет
+        </button>
+    </form>
+
+    <a href="{% url 'home' %}" class="btn secondary">
+        Назад
+    </a>
+</section>
+
+{% endblock %}

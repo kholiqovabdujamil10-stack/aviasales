@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать билет{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <h1>Редактировать билет</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <select name="airline" required>
+            {% for airline in airlines %}
+                <option value="{{ airline.id }}" {% if ticket.airline.id == airline.id %}selected{% endif %}>
+                    {{ airline.airline_name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="departure" value="{{ ticket.departure }}" required>
+        <input type="text" name="arrival" value="{{ ticket.arrival }}" required>
+        <input type="date" name="flight" value="{{ ticket.flight|date:'Y-m-d' }}" required>
+        <input type="date" name="landing" value="{{ ticket.landing|date:'Y-m-d' }}" required>
+        <input type="number" name="price" value="{{ ticket.price }}" required>
+
+        <button type="submit" class="btn">Сохранить изменения</button>
+    </form>
+
+    <a href="{% url 'my_tickets' %}" class="btn secondary">Назад</a>
+</section>
+
+{% endblock %}

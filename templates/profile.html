@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Мой профиль | Aviasales{% endblock %}
+{% block content %}
+
+<section class="edit-wallet">
+
+    <div class="edit-wallet-header">
+        <h1>Мой профиль</h1>
+        <p>Информация о твоём аккаунте</p>
+    </div>
+
+    <div class="wallet-detail-card">
+        <div class="form-group">
+            <label>Имя пользователя</label>
+            <input type="text" value="{{ user.username }}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Дата регистрации</label>
+            <input type="text" value="{{ user.date_joined|date:'d.m.Y' }}" readonly>
+        </div>
+        
+        <div class="edit-wallet-actions">
+            <a href="{% url 'home' %}" class="btn secondary">На главную</a>
+        </div>
+    </div>
+    
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Главная | Aviasales{% endblock %}
+{% block content %}
+
+<section class="hero hero-main">
+    <h1>Найди свой авиабилет</h1>
+    <p>Ищи лучшие предложения на авиабилеты</p>
+
+    <form method="GET">
+        <input type="text" name="departure" placeholder="Откуда">
+        <input type="text" name="arrival" placeholder="Куда">
+        <input type="date" name="flight">
+
+        <button type="submit" class="btn">
+            Найти билеты
+        </button>
+    </form>
+
+    <a href="{% url 'create_task' %}" class="btn secondary">
+        Добавить билет
+    </a>
+</section>
+
+<section class="tickets">
+    <h2>Доступные авиабилеты</h2>
+
+    {% for ticket in tickets %}
+        <div class="ticket-card">
+            <h3>{{ ticket.departure }} → {{ ticket.arrival }}</h3>
+
+            <p>Авиакомпания: {{ ticket.airline.airline_name }}</p>
+            <p>Вылет: {{ ticket.flight|date:"d.m.Y" }}</p>
+            
+            <p>Прилёт: {{ ticket.landing|date:"d.m.Y" }}</p>
+
+            <h3>{{ ticket.price }} $</h3>
+        </div>
+    {% empty %}
+        <p>Билеты не найдены.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}
